@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.sunritel.fingerprinthelper.utils.ActionUtil;
 import com.sunritel.fingerprinthelper.utils.Log;
 
 
@@ -21,13 +22,17 @@ public class SettingsActivity extends AppCompatActivity {
         }
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(false);
         }
-        Log.d("FingerPrintHelperApplication --> onCreate");
+        Log.d("onCreate");
     }
 
     @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        return super.dispatchKeyEvent(event);
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_F9) {
+            Log.d("onKeyUp F9");
+            ActionUtil.lunchCamera(this);
+        }
+        return super.onKeyUp(keyCode, event);
     }
 }

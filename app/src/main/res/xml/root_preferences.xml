@@ -6,20 +6,22 @@
         app:title="@string/category_action_title">
 
         <SwitchPreferenceCompat
+            app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/main_key"
-            app:summary="@string/main_enable"
-            app:summaryOff="@string/main_disable"
+            app:summary="@string/main_summary_on"
+            app:summaryOff="@string/main_summary_off"
             app:title="@string/main_button" />
 
         <SwitchPreferenceCompat
+            app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/authentication_key"
             app:summary="@string/authentication_summary"
             app:title="@string/authentication_title" />
 
         <ListPreference
-            app:defaultValue="action_home"
+            app:defaultValue="@string/action_home"
             app:entries="@array/action_names"
             app:entryValues="@array/action_values"
             app:iconSpaceReserved="false"
@@ -41,8 +43,16 @@
         app:title="@string/category_dev_title">
 
         <SwitchPreferenceCompat
+            app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/dev_key"
+            app:summary="@string/dev_summary"
+            app:title="@string/dev_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/dev_key_2"
             app:summary="@string/dev_summary"
             app:title="@string/dev_title" />
     </PreferenceCategory>

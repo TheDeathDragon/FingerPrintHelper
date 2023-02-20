@@ -9,10 +9,10 @@
     </string-array>
 
     <string-array name="action_values">
-        <item>action_home</item>
-        <item>action_camera</item>
-        <item>action_lock</item>
-        <item>action_flashlight</item>
-        <item>action_start_application</item>
+        <item>@string/action_home</item>
+        <item>@string/action_camera</item>
+        <item>@string/action_lock</item>
+        <item>@string/action_flashlight</item>
+        <item>@string/action_start_application</item>
     </string-array>
 </resources>
