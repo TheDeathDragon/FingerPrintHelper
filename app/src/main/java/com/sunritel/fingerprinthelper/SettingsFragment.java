@@ -46,6 +46,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         appListPreference.setOnPreferenceChangeListener(this);
 
         setEnabled(mPreferenceUtil.getBoolean(R.string.main_key));
+        setEnabled(mPreferenceUtil.getBoolean(R.string.action_start_application));
 
         appList = getInstalledAppInfo();
         String[] appLabels = new String[appList.size()];
@@ -130,6 +131,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         List<ResolveInfo> appList = mContext.getPackageManager().queryIntentActivities(intent, 0);
         for (ResolveInfo info : appList) {
             Log.d("getInstalledAppInfo --> " + info.activityInfo.packageName);
+            // exclude this app
+//            if (info.activityInfo.packageName.equals(mContext.getPackageName())) {
+//                appList.remove(info);
+//            }
         }
         return appList;
     }
@@ -142,7 +147,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         }
         authenticationSwitchPreference.setEnabled(enabled);
         actionListPreference.setEnabled(enabled);
-        appListPreference.setEnabled(enabled);
+        appListPreference.setEnabled(enabled && mPreferenceUtil.getString(R.string.action_key).equals(getString(R.string.action_start_application)));
     }
 
 }

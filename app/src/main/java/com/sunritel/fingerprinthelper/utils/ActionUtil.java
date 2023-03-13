@@ -7,6 +7,8 @@ import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 import android.os.PowerManager;
 
+import com.sunritel.fingerprinthelper.R;
+
 public class ActionUtil {
 
     public static void showHomeScreen(Context context) {
@@ -31,7 +33,7 @@ public class ActionUtil {
         cameraIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         try {
             context.startActivity(cameraIntent);
-            Log.d("ActionUtil --> showCamera" );
+            Log.d("ActionUtil --> showCamera");
         } catch (Exception e) {
             Log.e("ActionUtil --> showCamera: " + e.getMessage());
         }
@@ -60,6 +62,17 @@ public class ActionUtil {
         } catch (CameraAccessException e) {
             Log.e("ActionUtil --> openFlashLight: " + e.getMessage());
         }
+    }
+
+    public static void startApplication(Context context, String packageName, String appActivityName) {
+        Intent intent = new Intent();
+        intent.setClassName(packageName, appActivityName);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+        Log.d("ActionUtil --> startApplication: " + packageName);
+        Log.d("ActionUtil --> startApplication --> " + appActivityName);
     }
 
 }
