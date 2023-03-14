@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.IntentFilter;
 
 import com.sunritel.fingerprinthelper.receiver.FingerprintEventReceiver;
-import com.sunritel.fingerprinthelper.utils.PreferenceUtil;
 
 
 public class FingerPrintHelperApplication extends Application {

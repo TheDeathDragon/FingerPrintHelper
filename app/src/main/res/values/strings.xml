@@ -8,7 +8,6 @@
     <string name="main_key">key_main_enable</string>
 
     <string name="action_title">Action</string>
-    <string name="action_camera">Launch Camera</string>
     <string name="action_home">Show Home Screen</string>
     <string name="action_lock">Lock Screen</string>
     <string name="action_flashlight">Open Flashlight</string>
@@ -23,14 +22,12 @@
     <string name="authentication_summary">Only start the action if the fingerprint has been authenticated</string>
     <string name="authentication_key">key_authentication_enable</string>
 
-    <string name="dev_title">Developer Settings</string>
-    <string name="dev_summary">Start selected app</string>
-    <string name="dev_button">Test Start Application</string>
-    <string name="dev_key">key_dev_enable</string>
     <string name="category_action_title">Fingerprint Action</string>
-    <string name="category_dev_title">Developer Settings</string>
+    <string name="category_settings_title">Fingerprint Settings</string>
 
-    <string name="dev_key_2">key_dev_enable_2</string>
+    <string name="fingerprint_default">Please select a fingerprint</string>
+    <string name="fingerprint_title">Fingerprint</string>
+    <string name="fingerprint_key">key_fingerprint_select</string>
 
 
 </resources>

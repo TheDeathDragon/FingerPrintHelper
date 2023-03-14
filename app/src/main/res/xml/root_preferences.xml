@@ -20,41 +20,37 @@
             app:summary="@string/authentication_summary"
             app:title="@string/authentication_title" />
 
-        <ListPreference
-            app:defaultValue="@string/action_home"
-            app:entries="@array/action_names"
-            app:entryValues="@array/action_values"
+        <PreferenceCategory
             app:iconSpaceReserved="false"
-            app:key="@string/action_key"
-            app:title="@string/action_title"
-            app:useSimpleSummaryProvider="true" />
+            app:title="@string/category_settings_title">
 
-        <ListPreference
-            app:iconSpaceReserved="false"
-            app:key="@string/action_start_app_key"
-            app:summary="@string/action_start_app_summary"
-            app:title="@string/action_start_app_title"
-            app:useSimpleSummaryProvider="false" />
+            <ListPreference
+                app:defaultValue="@string/fingerprint_default"
+                app:entries="@array/fingerprints"
+                app:entryValues="@array/fingerprints"
+                app:iconSpaceReserved="false"
+                app:key="@string/fingerprint_key"
+                app:title="@string/fingerprint_title"
+                app:useSimpleSummaryProvider="true" />
 
-    </PreferenceCategory>
 
-    <PreferenceCategory
-        app:iconSpaceReserved="false"
-        app:title="@string/category_dev_title">
+            <ListPreference
+                app:defaultValue="@string/action_home"
+                app:entries="@array/action_names"
+                app:entryValues="@array/action_values"
+                app:iconSpaceReserved="false"
+                app:key="@string/action_key"
+                app:title="@string/action_title"
+                app:useSimpleSummaryProvider="true" />
 
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:key="@string/dev_key"
-            app:summary="@string/dev_summary"
-            app:title="@string/dev_title" />
+            <ListPreference
+                app:iconSpaceReserved="false"
+                app:key="@string/action_start_app_key"
+                app:summary="@string/action_start_app_summary"
+                app:title="@string/action_start_app_title"
+                app:useSimpleSummaryProvider="false" />
+        </PreferenceCategory>
 
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:key="@string/dev_key_2"
-            app:summary="@string/dev_summary"
-            app:title="@string/dev_title" />
     </PreferenceCategory>
 
 </PreferenceScreen>

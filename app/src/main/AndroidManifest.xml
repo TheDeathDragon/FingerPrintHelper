@@ -18,6 +18,7 @@
         </intent>
     </queries>
 
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <application
         android:name=".FingerPrintHelperApplication"
         android:allowBackup="false"
@@ -28,10 +29,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FingerPrintHelper">
-        <service
-            android:name=".service.ActionService"
-            android:enabled="true"
-            android:exported="true" />
 
         <activity
             android:name=".SettingsActivity"
@@ -52,6 +49,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="com.sunritel.fingerprinthelper.AUTHENTICATED" />
+                <action android:name="com.sunritel.fingerprinthelper.LISTFINGERPRINTS" />
             </intent-filter>
         </receiver>
     </application>

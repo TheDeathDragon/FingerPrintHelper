@@ -24,21 +24,6 @@ public class ActionUtil {
             Log.e("ActionUtil --> showHomeScreen: " + e.getMessage());
         }
     }
-
-    public static void lunchCamera(Context context) {
-        Intent cameraIntent = new Intent();
-        cameraIntent.setClassName("com.mediatek.camera", "com.mediatek.camera.CameraLauncher");
-        cameraIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        cameraIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        cameraIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        try {
-            context.startActivity(cameraIntent);
-            Log.d("ActionUtil --> showCamera");
-        } catch (Exception e) {
-            Log.e("ActionUtil --> showCamera: " + e.getMessage());
-        }
-    }
-
     public static void lockScreen(Context context) {
         try {
             PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);

@@ -26,13 +26,4 @@ public class SettingsActivity extends AppCompatActivity {
         }
         Log.d("onCreate");
     }
-
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_F9) {
-            Log.d("onKeyUp F9");
-            ActionUtil.lunchCamera(this);
-        }
-        return super.onKeyUp(keyCode, event);
-    }
 }

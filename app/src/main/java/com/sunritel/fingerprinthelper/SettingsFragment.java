@@ -2,8 +2,13 @@ package com.sunritel.fingerprinthelper;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.hardware.fingerprint.Fingerprint;
+import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
+import android.os.UserHandle;
 
 import androidx.annotation.NonNull;
 import androidx.preference.ListPreference;
@@ -11,7 +16,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.sunritel.fingerprinthelper.utils.ActionUtil;
 import com.sunritel.fingerprinthelper.utils.Log;
 import com.sunritel.fingerprinthelper.utils.PreferenceUtil;
 
@@ -28,6 +32,15 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
     private SwitchPreferenceCompat authenticationSwitchPreference;
     private ListPreference appListPreference;
     private ListPreference actionListPreference;
+    private ListPreference fingerprintListPreference;
+
+    private static final int USER_ID = UserHandle.myUserId();
+    private static final UserHandle USER_HANDLE = new UserHandle(USER_ID);
+    private List<Fingerprint> fingerprints;
+    private FingerprintManager fingerprintManager;
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
+
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -39,64 +52,62 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         authenticationSwitchPreference = findPreference(getString(R.string.authentication_key));
         actionListPreference = findPreference(getString(R.string.action_key));
         appListPreference = findPreference(getString(R.string.action_start_app_key));
+        fingerprintListPreference = findPreference(getString(R.string.fingerprint_key));
 
         enableSwitchPreference.setOnPreferenceChangeListener(this);
         authenticationSwitchPreference.setOnPreferenceChangeListener(this);
         actionListPreference.setOnPreferenceChangeListener(this);
         appListPreference.setOnPreferenceChangeListener(this);
+        fingerprintListPreference.setOnPreferenceChangeListener(this);
 
         setEnabled(mPreferenceUtil.getBoolean(R.string.main_key));
-        setEnabled(mPreferenceUtil.getBoolean(R.string.action_start_application));
 
         appList = getInstalledAppInfo();
         String[] appLabels = new String[appList.size()];
         String[] appActivityNames = new String[appList.size()];
-        if (appListPreference != null) {
-            for (int i = 0; i < appList.size(); i++) {
-                appLabels[i] = appList.get(i).loadLabel(mContext.getPackageManager()).toString();
-                appActivityNames[i] = appList.get(i).activityInfo.packageName + "#" + appList.get(i).activityInfo.name;
-                if (appActivityNames[i].equals(mPreferenceUtil.getString(R.string.action_start_app_key))) {
-                    appListPreference.setSummary(appLabels[i]);
-                    appListPreference.setValue(appActivityNames[i]);
-                }
-                Log.d("onCreatePreferences --> " + appLabels[i]);
-                Log.d("onCreatePreferences --> " + appActivityNames[i]);
+        for (int i = 0; i < appList.size(); i++) {
+            appLabels[i] = appList.get(i).loadLabel(mContext.getPackageManager()).toString();
+            appActivityNames[i] = appList.get(i).activityInfo.packageName + "#" + appList.get(i).activityInfo.name;
+            if (appActivityNames[i].equals(mPreferenceUtil.getString(R.string.action_start_app_key))) {
+                appListPreference.setSummary(appLabels[i]);
+                appListPreference.setValue(appActivityNames[i]);
             }
-            appListPreference.setEntries(appLabels);
-            appListPreference.setEntryValues(appActivityNames);
-        } else {
-            Log.d("onCreatePreferences --> appListPreference is null, please check the permission of the app");
+            Log.d("onCreatePreferences --> " + appLabels[i]);
+            Log.d("onCreatePreferences --> " + appActivityNames[i]);
+        }
+        appListPreference.setEntries(appLabels);
+        appListPreference.setEntryValues(appActivityNames);
+
+        try {
+            fingerprintManager = getFingerprintManagerOrNull(mContext);
+            if (fingerprintManager != null && fingerprintManager.hasEnrolledFingerprints()) {
+                Log.d("onCreatePreferences --> hasEnrolledFingerprints --> true");
+                fingerprints = fingerprintManager.getEnrolledFingerprints(USER_ID);
+                String[] fingerprintLabels = new String[fingerprints.size()];
+                String[] fingerprintNames = new String[fingerprints.size()];
+                for (Fingerprint fingerprint : fingerprints) {
+                    Log.d("onCreatePreferences --> fingerprint --> " + fingerprint.getName());
+                    Log.d("onCreatePreferences --> fingerprint --> " + fingerprint.getBiometricId());
+                    sp = mContext.getSharedPreferences("fingerprints", Context.MODE_PRIVATE);
+                    editor = sp.edit();
+                    editor.putString(fingerprint.getBiometricId() + "", (String) fingerprint.getName());
+                    editor.apply();
+                    fingerprintLabels[fingerprints.indexOf(fingerprint)] = (String) fingerprint.getName();
+                    fingerprintNames[fingerprints.indexOf(fingerprint)] = fingerprint.getBiometricId() + "";
+                }
+                fingerprintListPreference.setEntries(fingerprintLabels);
+                fingerprintListPreference.setEntryValues(fingerprintNames);
+            } else {
+                Log.d("onCreatePreferences --> hasEnrolledFingerprints --> false");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("onCreatePreferences --> Init FingerprintManager failed");
         }
     }
 
     @Override
     public boolean onPreferenceTreeClick(@NonNull Preference preference) {
-        if (preference.getKey().equals(getString(R.string.dev_key))) {
-            Intent intent = new Intent();
-            if (mPreferenceUtil.getString(R.string.action_start_app_key).equals("")) {
-                Log.d("onPreferenceTreeClick --> mPreferenceUtil.getString(R.string.action_start_app_key) is null");
-                return super.onPreferenceTreeClick(preference);
-            }
-            String packageName = mPreferenceUtil.getString(R.string.action_start_app_key).split("#")[0];
-            String appActivityName = mPreferenceUtil.getString(R.string.action_start_app_key).split("#")[1];
-            Log.d("onPreferenceTreeClick --> packageName --> " + packageName);
-            Log.d("onPreferenceTreeClick --> activityName --> " + appActivityName);
-            intent.setClassName(packageName, appActivityName);
-            startActivity(intent);
-        } else if (preference.getKey().equals(getString(R.string.dev_key_2))) {
-            Log.d("onPreferenceTreeClick --> dev_key_2 --> " + mPreferenceUtil.getString(R.string.action_key));
-            if (mPreferenceUtil.getString(R.string.action_key).equals(getString(R.string.action_home))) {
-                ActionUtil.showHomeScreen(mContext);
-            } else if (mPreferenceUtil.getString(R.string.action_key).equals(getString(R.string.action_camera))) {
-                ActionUtil.lunchCamera(mContext);
-            } else if (mPreferenceUtil.getString(R.string.action_key).equals(getString(R.string.action_lock))) {
-                ActionUtil.lockScreen(mContext);
-            } else if (mPreferenceUtil.getString(R.string.action_key).equals(getString(R.string.action_flashlight))) {
-                ActionUtil.openFlashLight(mContext);
-            } else if (mPreferenceUtil.getString(R.string.action_key).equals(getString(R.string.action_start_application))) {
-
-            }
-        }
         return super.onPreferenceTreeClick(preference);
     }
 
@@ -105,8 +116,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         Log.d("onPreferenceChange --> " + preference.getKey() + " --> " + newValue);
         if (preference.equals(enableSwitchPreference)) {
             setEnabled((boolean) newValue);
-        } else if (preference.equals(authenticationSwitchPreference)) {
-
         } else if (preference.equals(actionListPreference)) {
             appListPreference.setEnabled(newValue.equals(getString(R.string.action_start_application)));
             Log.d("onPreferenceChange --> " + newValue);
@@ -121,6 +130,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                     break;
                 }
             }
+        } else if (preference.equals(fingerprintListPreference)) {
+            Log.d("onPreferenceChange --> " + newValue);
         }
         return true;
     }
@@ -129,12 +140,16 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         List<ResolveInfo> appList = mContext.getPackageManager().queryIntentActivities(intent, 0);
+        ResolveInfo mPackageInfo = null;
         for (ResolveInfo info : appList) {
             Log.d("getInstalledAppInfo --> " + info.activityInfo.packageName);
-            // exclude this app
-//            if (info.activityInfo.packageName.equals(mContext.getPackageName())) {
-//                appList.remove(info);
-//            }
+            if (info.activityInfo.packageName.equals(mContext.getPackageName())) {
+                mPackageInfo = info;
+            }
+        }
+        // exclude this app
+        if (mPackageInfo != null) {
+            appList.remove(mPackageInfo);
         }
         return appList;
     }
@@ -148,6 +163,15 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         authenticationSwitchPreference.setEnabled(enabled);
         actionListPreference.setEnabled(enabled);
         appListPreference.setEnabled(enabled && mPreferenceUtil.getString(R.string.action_key).equals(getString(R.string.action_start_application)));
+        fingerprintListPreference.setEnabled(enabled);
+    }
+
+    public static FingerprintManager getFingerprintManagerOrNull(Context context) {
+        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
+            return (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
+        } else {
+            return null;
+        }
     }
 
 }
