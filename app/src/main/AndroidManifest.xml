@@ -6,9 +6,7 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-    <uses-permission
-        android:name="android.permission.DEVICE_POWER"
-        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="com.sunritel.fingerprinthelper.permission" />
 
     <queries>
         <intent>
@@ -37,9 +35,26 @@
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.android.settings.action.EXTRA_SETTINGS" />
                 <!-- <category android:name="android.intent.category.DEFAULT" /> -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <meta-data
+                android:name="com.android.settings.category"
+                android:value="com.android.settings.category.system" />
+            <meta-data
+                android:name="com.android.settings.title"
+                android:value="@string/app_name" />
+            <meta-data
+                android:name="com.android.settings.order"
+                android:value="-150" />
+<!--            <meta-data-->
+<!--                android:name="com.android.settings.icon"-->
+<!--                android:resource="@drawable/ic_launcher_settings_ext" />-->
+            <meta-data
+                android:name="com.android.settings.summary"
+                android:resource="@string/app_summary" />
         </activity>
 
         <receiver

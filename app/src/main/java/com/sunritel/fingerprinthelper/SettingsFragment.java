@@ -31,7 +31,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
     private SwitchPreferenceCompat enableSwitchPreference;
     private SwitchPreferenceCompat authenticationSwitchPreference;
     private ListPreference appListPreference;
+
+    private ListPreference shortcutListPreference;
+
     private ListPreference actionListPreference;
+
     private ListPreference fingerprintListPreference;
 
     private static final int USER_ID = UserHandle.myUserId();
@@ -52,12 +56,14 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         authenticationSwitchPreference = findPreference(getString(R.string.authentication_key));
         actionListPreference = findPreference(getString(R.string.action_key));
         appListPreference = findPreference(getString(R.string.action_start_app_key));
+        shortcutListPreference = findPreference(getString(R.string.action_start_shortcut_key));
         fingerprintListPreference = findPreference(getString(R.string.fingerprint_key));
 
         enableSwitchPreference.setOnPreferenceChangeListener(this);
         authenticationSwitchPreference.setOnPreferenceChangeListener(this);
         actionListPreference.setOnPreferenceChangeListener(this);
         appListPreference.setOnPreferenceChangeListener(this);
+        shortcutListPreference.setOnPreferenceChangeListener(this);
         fingerprintListPreference.setOnPreferenceChangeListener(this);
 
         setEnabled(mPreferenceUtil.getBoolean(R.string.main_key));
@@ -132,6 +138,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
             }
         } else if (preference.equals(fingerprintListPreference)) {
             Log.d("onPreferenceChange --> " + newValue);
+            // TODO 每个指纹对应单独设置
         }
         return true;
     }
@@ -162,7 +169,12 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         }
         authenticationSwitchPreference.setEnabled(enabled);
         actionListPreference.setEnabled(enabled);
-        appListPreference.setEnabled(enabled && mPreferenceUtil.getString(R.string.action_key).equals(getString(R.string.action_start_application)));
+        appListPreference.setEnabled(enabled &&
+                mPreferenceUtil.getString(R.string.action_key)
+                        .equals(getString(R.string.action_start_application)));
+        shortcutListPreference.setEnabled(enabled &&
+                mPreferenceUtil.getString(R.string.action_key)
+                        .equals(getString(R.string.action_start_shortcut)));
         fingerprintListPreference.setEnabled(enabled);
     }
 

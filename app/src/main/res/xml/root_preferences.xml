@@ -49,6 +49,13 @@
                 app:summary="@string/action_start_app_summary"
                 app:title="@string/action_start_app_title"
                 app:useSimpleSummaryProvider="false" />
+
+            <ListPreference
+                app:iconSpaceReserved="false"
+                app:key="@string/action_start_shortcut_key"
+                app:summary="@string/action_start_shortcut_summary"
+                app:title="@string/action_start_shortcut_title"
+                app:useSimpleSummaryProvider="false" />
         </PreferenceCategory>
 
     </PreferenceCategory>

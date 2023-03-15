@@ -37,9 +37,6 @@ public class FingerprintEventReceiver extends BroadcastReceiver {
                         .equals(mAppContext.getString(R.string.action_home))) {
                     ActionUtil.showHomeScreen(mAppContext);
                 } else if (mPreferenceUtil.getString(R.string.action_key)
-                        .equals(mAppContext.getString(R.string.action_lock))) {
-                    ActionUtil.lockScreen(mAppContext);
-                } else if (mPreferenceUtil.getString(R.string.action_key)
                         .equals(mAppContext.getString(R.string.action_flashlight))) {
                     ActionUtil.openFlashLight(mAppContext);
                 } else if (mPreferenceUtil.getString(R.string.action_key)

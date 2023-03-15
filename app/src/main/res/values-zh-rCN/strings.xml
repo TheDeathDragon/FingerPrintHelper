@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">指纹速启</string>
+    <string name="main_title">主设置</string>
+    <string name="main_summary_off">指纹速启功能已经关闭</string>
+    <string name="main_summary_on">指纹速启功能已经开启</string>
+    <string name="main_button">启用</string>
+    <string name="app_summary">指纹速启可快捷开启一些功能</string>
+    <string name="action_title">动作</string>
+    <string name="action_home">显示主屏幕</string>
+    <string name="action_flashlight">打开手电筒</string>
+    <string name="action_start_application">启动应用</string>
+    <string name="action_start_app_title">要启动的应用</string>
+    <string name="action_start_app_summary">未选择</string>
+    <string name="authentication_title">需要解锁</string>
+    <string name="authentication_summary">当使用指纹解锁手机后才启动</string>
+    <string name="category_action_title">指纹速启开关</string>
+    <string name="category_settings_title">指纹速启设置</string>
+    <string name="fingerprint_default">请选择一个指纹</string>
+    <string name="fingerprint_title">指纹</string>
+</resources>

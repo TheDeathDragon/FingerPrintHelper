@@ -1,33 +1,38 @@
 <resources>
     <string name="app_name">FingerPrintHelper</string>
+    <string name="app_summary">FingerPrintHelper can provide some convenient functions</string>
 
     <string name="main_title">Main Settings</string>
     <string name="main_summary_off">The fingerprint action is turned off</string>
     <string name="main_summary_on">The fingerprint action is turned on</string>
     <string name="main_button">Enable</string>
-    <string name="main_key">key_main_enable</string>
+    <string name="main_key" translatable="false">key_main_enable</string>
 
     <string name="action_title">Action</string>
     <string name="action_home">Show Home Screen</string>
-    <string name="action_lock">Lock Screen</string>
     <string name="action_flashlight">Open Flashlight</string>
     <string name="action_start_application">Start Application</string>
-    <string name="action_key">key_action_select</string>
+    <string name="action_start_shortcut">Start ShortCut</string>
+    <string name="action_key" translatable="false">key_action_select</string>
 
     <string name="action_start_app_title">App that should be started</string>
     <string name="action_start_app_summary">Not Selected</string>
-    <string name="action_start_app_key">key_action_start_select</string>
+    <string name="action_start_app_key" translatable="false">key_action_start_app_select</string>
+
+    <string name="action_start_shortcut_title">Shortcut that should be started</string>
+    <string name="action_start_shortcut_summary">Not Selected</string>
+    <string name="action_start_shortcut_key" translatable="false">key_action_start_shortcut_select</string>
 
     <string name="authentication_title">Authentication</string>
     <string name="authentication_summary">Only start the action if the fingerprint has been authenticated</string>
-    <string name="authentication_key">key_authentication_enable</string>
+    <string name="authentication_key" translatable="false">key_authentication_enable</string>
 
     <string name="category_action_title">Fingerprint Action</string>
     <string name="category_settings_title">Fingerprint Settings</string>
 
     <string name="fingerprint_default">Please select a fingerprint</string>
     <string name="fingerprint_title">Fingerprint</string>
-    <string name="fingerprint_key">key_fingerprint_select</string>
+    <string name="fingerprint_key" translatable="false">key_fingerprint_select</string>
 
 
 </resources>
