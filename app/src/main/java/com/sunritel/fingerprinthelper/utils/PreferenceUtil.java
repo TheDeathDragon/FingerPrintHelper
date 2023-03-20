@@ -35,6 +35,17 @@ public class PreferenceUtil {
         e.apply();
     }
 
+    public String getString(String key) {
+        return sharedPrefs.getString(key, "");
+    }
+
+    public void setString(String key, String value) {
+        SharedPreferences.Editor e = sharedPrefs.edit();
+        e.putString(key, value);
+        e.apply();
+    }
+
+
     public int getInt(int resId) {
         return sharedPrefs.getInt(mContext.getString(resId), 0);
     }

@@ -35,11 +35,12 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file('lineage.keystore')
+            storeFile file('mtk.keystore')
+//            storeFile file('lineage.keystore')
             keyAlias 'android'
         }
         release {
-            storeFile file('lineage.keystore')
+            storeFile file('mtk.keystore')
             keyAlias 'android'
         }
     }

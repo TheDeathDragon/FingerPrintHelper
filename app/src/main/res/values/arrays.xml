@@ -1,16 +1,4 @@
 <resources>
-    <string-array name="action_names">
-        <item>@string/action_home</item>
-        <item>@string/action_flashlight</item>
-        <item>@string/action_start_application</item>
-    </string-array>
-
-    <string-array name="action_values">
-        <item>@string/action_home</item>
-        <item>@string/action_flashlight</item>
-        <item>@string/action_start_application</item>
-    </string-array>
-
     <string-array name="fingerprints">
         <item>@string/fingerprint_default</item>
     </string-array>

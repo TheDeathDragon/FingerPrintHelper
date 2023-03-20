@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="com.sunritel.fingerprinthelper.permission" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
     <queries>
         <intent>
@@ -16,7 +17,6 @@
         </intent>
     </queries>
 
-    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <application
         android:name=".FingerPrintHelperApplication"
         android:allowBackup="false"
@@ -27,7 +27,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FingerPrintHelper">
-
         <activity
             android:name=".SettingsActivity"
             android:excludeFromRecents="true"
@@ -49,9 +48,9 @@
             <meta-data
                 android:name="com.android.settings.order"
                 android:value="-150" />
-<!--            <meta-data-->
-<!--                android:name="com.android.settings.icon"-->
-<!--                android:resource="@drawable/ic_launcher_settings_ext" />-->
+            <!--            <meta-data-->
+            <!--                android:name="com.android.settings.icon"-->
+            <!--                android:resource="@drawable/ic_launcher_settings_ext" />-->
             <meta-data
                 android:name="com.android.settings.summary"
                 android:resource="@string/app_summary" />
@@ -60,11 +59,11 @@
         <receiver
             android:name=".receiver.BootReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:permission="com.sunritel.fingerprinthelper.permission">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="com.sunritel.fingerprinthelper.AUTHENTICATED" />
-                <action android:name="com.sunritel.fingerprinthelper.LISTFINGERPRINTS" />
             </intent-filter>
         </receiver>
     </application>

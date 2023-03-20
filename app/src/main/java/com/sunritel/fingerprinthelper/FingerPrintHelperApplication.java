@@ -15,8 +15,12 @@ public class FingerPrintHelperApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mApplicationContext = this;
-        mApplicationContext.getApplicationContext().registerReceiver(new FingerprintEventReceiver(),
-                new IntentFilter("com.sunritel.fingerprinthelper.AUTHENTICATED"));
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.sunritel.fingerprinthelper.AUTHENTICATED");
+        intentFilter.addAction("com.sunritel.fingerprinthelper.PRESSED");
+        mApplicationContext.getApplicationContext().registerReceiver(new FingerprintEventReceiver()
+                , intentFilter
+                , "com.sunritel.fingerprinthelper.permission", null);
     }
 
     public static Context getContext() {

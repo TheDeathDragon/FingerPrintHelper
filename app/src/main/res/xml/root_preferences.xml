@@ -3,7 +3,7 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
-        app:title="@string/category_action_title">
+        app:title="@string/main_title">
 
         <SwitchPreferenceCompat
             app:defaultValue="false"
@@ -13,19 +13,13 @@
             app:summaryOff="@string/main_summary_off"
             app:title="@string/main_button" />
 
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:key="@string/authentication_key"
-            app:summary="@string/authentication_summary"
-            app:title="@string/authentication_title" />
-
         <PreferenceCategory
             app:iconSpaceReserved="false"
             app:title="@string/category_settings_title">
 
             <ListPreference
                 app:defaultValue="@string/fingerprint_default"
+                app:enabled="false"
                 app:entries="@array/fingerprints"
                 app:entryValues="@array/fingerprints"
                 app:iconSpaceReserved="false"
@@ -33,31 +27,53 @@
                 app:title="@string/fingerprint_title"
                 app:useSimpleSummaryProvider="true" />
 
-
             <ListPreference
-                app:defaultValue="@string/action_home"
-                app:entries="@array/action_names"
-                app:entryValues="@array/action_values"
+                app:enabled="false"
                 app:iconSpaceReserved="false"
-                app:key="@string/action_key"
-                app:title="@string/action_title"
-                app:useSimpleSummaryProvider="true" />
-
-            <ListPreference
-                app:iconSpaceReserved="false"
-                app:key="@string/action_start_app_key"
-                app:summary="@string/action_start_app_summary"
-                app:title="@string/action_start_app_title"
-                app:useSimpleSummaryProvider="false" />
-
-            <ListPreference
-                app:iconSpaceReserved="false"
-                app:key="@string/action_start_shortcut_key"
-                app:summary="@string/action_start_shortcut_summary"
-                app:title="@string/action_start_shortcut_title"
+                app:key="@string/fingerprint_start_app_key"
+                app:summary="@string/fingerprint_start_app_summary"
+                app:title="@string/fingerprint_start_app_title"
                 app:useSimpleSummaryProvider="false" />
         </PreferenceCategory>
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/fingerprint_short_press_title">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:enabled="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/fingerprint_function_return_key"
+            app:summary="@string/fingerprint_function_return_summary"
+            app:title="@string/fingerprint_function_return_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/fingerprint_long_press_title">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:enabled="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/fingerprint_function_home_key"
+            app:summary="@string/fingerprint_function_home_summary"
+            app:title="@string/fingerprint_function_home_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:enabled="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/fingerprint_function_recent_key"
+            app:summary="@string/fingerprint_function_recent_summary"
+            app:title="@string/fingerprint_function_recent_title" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/tips_key"
+            app:summary="@string/tips" />
+    </PreferenceCategory>
 </PreferenceScreen>
