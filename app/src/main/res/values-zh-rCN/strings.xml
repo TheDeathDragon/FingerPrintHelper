@@ -10,14 +10,13 @@
     <string name="fingerprint_default">请选择一个指纹</string>
     <string name="fingerprint_title">指纹</string>
     <string name="no_fingerprint_enrolled">没有已录入的指纹</string>
-    <string name="fingerprint_long_press_title">指纹触控功能-长按</string>
-    <string name="fingerprint_short_press_title">指纹触控功能-轻触</string>
+    <string name="fingerprint_press_title">指纹触控功能</string>
     <string name="fingerprint_function_return_title">返回上一级</string>
     <string name="fingerprint_function_home_title">返回主界面</string>
     <string name="fingerprint_function_recent_title">显示最近任务</string>
     <string name="fingerprint_function_return_summary">轻触指纹传感器返回上一级</string>
-    <string name="fingerprint_function_home_summary">长按指纹传感器返回主界面</string>
-    <string name="fingerprint_function_recent_summary">长按指纹传感器显示最近任务</string>
+    <string name="fingerprint_function_home_summary">轻触指纹传感器返回主界面</string>
+    <string name="fingerprint_function_recent_summary">轻触指纹传感器显示最近任务</string>
     <string name="fingerprint_start_app_title">要启动的应用</string>
     <string name="fingerprint_start_app_summary">请选择要启动的应用</string>
     <string name="tips">说明：指纹触控功能无需校验指纹信息，任意手指均可进行操作</string>

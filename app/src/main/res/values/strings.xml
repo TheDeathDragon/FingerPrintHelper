@@ -20,20 +20,19 @@
 
     <string name="no_fingerprint_enrolled">No fingerprint enrolled </string>
 
-    <string name="fingerprint_short_press_title">Fingerprint Short Press Function</string>
-    <string name="fingerprint_long_press_title">Fingerprint Long Press Function</string>
+    <string name="fingerprint_press_title">Fingerprint Press Function</string>
 
     <string name="fingerprint_function_return_title">Go back</string>
     <string name="fingerprint_function_return_key" translatable="false">key_fingerprint_function_return</string>
-    <string name="fingerprint_function_return_summary">Tapping to go back</string>
+    <string name="fingerprint_function_return_summary">Press to go back</string>
 
     <string name="fingerprint_function_home_title">Show Home Screen</string>
     <string name="fingerprint_function_home_key" translatable="false">key_fingerprint_function_home</string>
-    <string name="fingerprint_function_home_summary">Long press to show home screen</string>
+    <string name="fingerprint_function_home_summary">Press to show home screen</string>
 
     <string name="fingerprint_function_recent_title">Show Recent Tasks</string>
     <string name="fingerprint_function_recent_key" translatable="false">key_fingerprint_function_recent</string>
-    <string name="fingerprint_function_recent_summary">Long press to show recent tasks</string>
+    <string name="fingerprint_function_recent_summary">Press to show recent tasks</string>
 
     <string name="tips">Tips: Fingerprint touch function does not need to verify fingerprint information, any finger can be operated.</string>
     <string name="tips_key" translatable="false">key_tips</string>

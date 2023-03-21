@@ -40,7 +40,7 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
-        app:title="@string/fingerprint_short_press_title">
+        app:title="@string/fingerprint_press_title">
 
         <SwitchPreferenceCompat
             app:defaultValue="false"
@@ -49,11 +49,6 @@
             app:key="@string/fingerprint_function_return_key"
             app:summary="@string/fingerprint_function_return_summary"
             app:title="@string/fingerprint_function_return_title" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        app:iconSpaceReserved="false"
-        app:title="@string/fingerprint_long_press_title">
 
         <SwitchPreferenceCompat
             app:defaultValue="false"

@@ -132,6 +132,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
             }
         }
         if (preference.equals(mAppListPreference)) {
+            if (newValue.toString().equals("")) {
+                mAppListPreference.setSummary(getString(R.string.fingerprint_start_app_summary));
+                mAppListPreference.setIcon(null);
+                mAppListPreference.setIconSpaceReserved(false);
+                mPreferenceUtil.setString(mPreferenceUtil.getString(R.string.fingerprint_key) + "_app", "");
+                return true;
+            }
             String packageName = newValue.toString().split("#")[0];
             String appActivityName = newValue.toString().split("#")[1];
             Log.d("onPreferenceChange --> packageName --> " + packageName);
@@ -149,6 +156,16 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         if (preference.equals(mReturnSwitchPreference)) {
             if ((boolean) newValue) {
                 Settings.System.putIntForUser(mContext.getContentResolver(), FINGERPRINT_KEY_RETURN, 1, UserHandle.USER_CURRENT);
+                if (mPreferenceUtil.getBoolean(R.string.fingerprint_function_home_key)) {
+                    mPreferenceUtil.setBoolean(R.string.fingerprint_function_home_key, false);
+                    mHomeSwitchPreference.setChecked(false);
+                    Settings.System.putIntForUser(mContext.getContentResolver(), FINGERPRINT_KEY_HOME, 0, UserHandle.USER_CURRENT);
+                }
+                if (mPreferenceUtil.getBoolean(R.string.fingerprint_function_recent_key)) {
+                    mPreferenceUtil.setBoolean(R.string.fingerprint_function_recent_key, false);
+                    mRecentSwitchPreference.setChecked(false);
+                    Settings.System.putIntForUser(mContext.getContentResolver(), FINGERPRINT_KEY_RECENT, 0, UserHandle.USER_CURRENT);
+                }
             } else {
                 Settings.System.putIntForUser(mContext.getContentResolver(), FINGERPRINT_KEY_RETURN, 0, UserHandle.USER_CURRENT);
             }
@@ -161,6 +178,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                     mRecentSwitchPreference.setChecked(false);
                     Settings.System.putIntForUser(mContext.getContentResolver(), FINGERPRINT_KEY_RECENT, 0, UserHandle.USER_CURRENT);
                 }
+                if (mPreferenceUtil.getBoolean(R.string.fingerprint_function_return_key)) {
+                    mPreferenceUtil.setBoolean(R.string.fingerprint_function_return_key, false);
+                    mReturnSwitchPreference.setChecked(false);
+                    Settings.System.putIntForUser(mContext.getContentResolver(), FINGERPRINT_KEY_RETURN, 0, UserHandle.USER_CURRENT);
+                }
             } else {
                 Settings.System.putIntForUser(mContext.getContentResolver(), FINGERPRINT_KEY_HOME, 0, UserHandle.USER_CURRENT);
             }
@@ -172,6 +194,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                     mPreferenceUtil.setBoolean(R.string.fingerprint_function_home_key, false);
                     mHomeSwitchPreference.setChecked(false);
                     Settings.System.putIntForUser(mContext.getContentResolver(), FINGERPRINT_KEY_HOME, 0, UserHandle.USER_CURRENT);
+                }
+                if (mPreferenceUtil.getBoolean(R.string.fingerprint_function_return_key)) {
+                    mPreferenceUtil.setBoolean(R.string.fingerprint_function_return_key, false);
+                    mReturnSwitchPreference.setChecked(false);
+                    Settings.System.putIntForUser(mContext.getContentResolver(), FINGERPRINT_KEY_RETURN, 0, UserHandle.USER_CURRENT);
                 }
             } else {
                 Settings.System.putIntForUser(mContext.getContentResolver(), FINGERPRINT_KEY_RECENT, 0, UserHandle.USER_CURRENT);
@@ -249,7 +276,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
             Log.e("initFingerprintManager --> Init FingerprintManager failed");
         } finally {
             if (mFingerprintManager != null && mFingerprints == null) {
-                setEnabled(false);
+                mFingerprintListPreference.setEnabled(false);
+                mAppListPreference.setEnabled(false);
                 Toast.makeText(mContext, mContext.getString(R.string.no_fingerprint_enrolled), Toast.LENGTH_SHORT).show();
             }
         }
@@ -258,8 +286,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
     public void initAppList() {
         // 读取已安装的app信息
         mAppList = getInstalledAppInfo();
-        String[] appLabels = new String[mAppList.size()];
-        String[] appActivityNames = new String[mAppList.size()];
+        String[] appLabels = new String[mAppList.size() + 1];
+        String[] appActivityNames = new String[mAppList.size() + 1];
 
         // 读取保存的app信息
         String app = mPreferenceUtil.getString(mPreferenceUtil.getString(R.string.fingerprint_key) + "_app");
@@ -281,6 +309,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
             Log.d("initAppList --> appLabels --> " + appLabels[i]);
             Log.d("initAppList --> appActivityNames --> " + appActivityNames[i]);
         }
+        appLabels[mAppList.size()] = getString(R.string.fingerprint_start_app_summary);
+        appActivityNames[mAppList.size()] = "";
         mAppListPreference.setEntries(appLabels);
         mAppListPreference.setEntryValues(appActivityNames);
     }
