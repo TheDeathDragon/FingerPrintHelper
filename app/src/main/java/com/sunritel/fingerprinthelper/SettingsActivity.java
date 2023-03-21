@@ -10,10 +10,18 @@ import com.sunritel.fingerprinthelper.utils.Log;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    static {
+        System.loadLibrary("fingerprinthelper");
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!isCertificateDevice()) {
+            finish();
+            return;
+        }
         setContentView(R.layout.settings_activity);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.settings, new SettingsFragment()).commit();
@@ -24,4 +32,6 @@ public class SettingsActivity extends AppCompatActivity {
         }
         Log.d("onCreate");
     }
+
+    public native boolean isCertificateDevice();
 }
