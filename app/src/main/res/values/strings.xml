@@ -21,6 +21,7 @@
     <string name="no_fingerprint_enrolled">No fingerprint enrolled </string>
 
     <string name="fingerprint_press_title">Fingerprint Press Function</string>
+    <string name="fingerprint_press_key" translatable="false">key_fingerprint_press</string>
 
     <string name="fingerprint_function_return_title">Go back</string>
     <string name="fingerprint_function_return_key" translatable="false">key_fingerprint_function_return</string>
@@ -34,9 +35,9 @@
     <string name="fingerprint_function_recent_key" translatable="false">key_fingerprint_function_recent</string>
     <string name="fingerprint_function_recent_summary">Press to show recent tasks</string>
 
-    <string name="tips">Tips: Fingerprint touch function does not need to verify fingerprint information, any finger can be operated.</string>
+    <string name="tips">Tips: Works only when the phone is unlocked by using the fingerprint</string>
     <string name="tips_key" translatable="false">key_tips</string>
 
-    <string name="toast_msg" translatable="false">Developed by Shiro</string>
+    <string name="toast_msg" translatable="false">Developed by Rin Shiro</string>
 
 </resources>

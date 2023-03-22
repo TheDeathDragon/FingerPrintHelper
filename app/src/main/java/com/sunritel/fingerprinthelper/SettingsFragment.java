@@ -12,9 +12,9 @@ import android.os.UserHandle;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.DialogCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
@@ -34,6 +34,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
     private SwitchPreferenceCompat mRecentSwitchPreference;
     private ListPreference mAppListPreference;
     private ListPreference mFingerprintListPreference;
+    private PreferenceCategory mFingerprintPressPreferenceCategory;
 
     private Preference mTipsPreference;
     private static final String FINGERPRINT_KEY_RETURN = "isFingerprintKeyReturn";
@@ -59,6 +60,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         mAppListPreference = findPreference(getString(R.string.fingerprint_start_app_key));
         mFingerprintListPreference = findPreference(getString(R.string.fingerprint_key));
         mTipsPreference = findPreference(getString(R.string.tips_key));
+        mFingerprintPressPreferenceCategory = findPreference(getString(R.string.fingerprint_press_key));
 
         mEnableSwitchPreference.setOnPreferenceChangeListener(this);
         mReturnSwitchPreference.setOnPreferenceChangeListener(this);
@@ -67,11 +69,21 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         mAppListPreference.setOnPreferenceChangeListener(this);
         mFingerprintListPreference.setOnPreferenceChangeListener(this);
 
+        mFingerprintPressPreferenceCategory.setVisible(mPreferenceUtil.getBoolean(R.string.fingerprint_press_key));
+
         mTipsClickCount = 0;
         mTipsPreference.setOnPreferenceClickListener(preference -> {
             mTipsClickCount = mTipsClickCount + 1;
-            if (mTipsClickCount == 5) {
+            if (mTipsClickCount == 7) {
                 Toast.makeText(mContext, getString(R.string.toast_msg), Toast.LENGTH_LONG).show();
+                mFingerprintPressPreferenceCategory.setVisible(true);
+                if (mPreferenceUtil.getBoolean(R.string.fingerprint_press_key)) {
+                    mPreferenceUtil.setBoolean(R.string.fingerprint_press_key, false);
+                    mFingerprintPressPreferenceCategory.setVisible(false);
+                } else {
+                    mPreferenceUtil.setBoolean(R.string.fingerprint_press_key, true);
+                    mFingerprintPressPreferenceCategory.setVisible(true);
+                }
                 mTipsClickCount = 0;
             }
             return true;
@@ -81,11 +93,15 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         setEnabled(mPreferenceUtil.getBoolean(R.string.main_key));
         initFingerprintManager();
         initAppList();
+        if (mFingerprintManager != null && mFingerprints == null) {
+            Toast.makeText(mContext, mContext.getString(R.string.no_fingerprint_enrolled), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        Log.d("onResume");
         setEnabled(mPreferenceUtil.getBoolean(R.string.main_key));
         initFingerprintManager();
         initAppList();
@@ -278,7 +294,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
             if (mFingerprintManager != null && mFingerprints == null) {
                 mFingerprintListPreference.setEnabled(false);
                 mAppListPreference.setEnabled(false);
-                Toast.makeText(mContext, mContext.getString(R.string.no_fingerprint_enrolled), Toast.LENGTH_SHORT).show();
             }
         }
     }

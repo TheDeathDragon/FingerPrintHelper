@@ -34,12 +34,18 @@
                 app:summary="@string/fingerprint_start_app_summary"
                 app:title="@string/fingerprint_start_app_title"
                 app:useSimpleSummaryProvider="false" />
+
+            <Preference
+                app:iconSpaceReserved="false"
+                app:key="@string/tips_key"
+                app:summary="@string/tips" />
         </PreferenceCategory>
 
     </PreferenceCategory>
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
+        app:key="@string/fingerprint_press_key"
         app:title="@string/fingerprint_press_title">
 
         <SwitchPreferenceCompat
@@ -65,10 +71,5 @@
             app:key="@string/fingerprint_function_recent_key"
             app:summary="@string/fingerprint_function_recent_summary"
             app:title="@string/fingerprint_function_recent_title" />
-
-        <Preference
-            app:iconSpaceReserved="false"
-            app:key="@string/tips_key"
-            app:summary="@string/tips" />
     </PreferenceCategory>
 </PreferenceScreen>

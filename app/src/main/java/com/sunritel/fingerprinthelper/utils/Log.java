@@ -2,7 +2,6 @@ package com.sunritel.fingerprinthelper.utils;
 
 public class Log {
 
-//    public static final String TAG = "FingerPrintHelper";
     public static final String TAG = "Rin";
     public static final String LOG_PREFIX = "FingerPrintHelperApplication --> ";
 

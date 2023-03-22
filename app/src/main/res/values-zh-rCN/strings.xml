@@ -19,5 +19,5 @@
     <string name="fingerprint_function_recent_summary">轻触指纹传感器显示最近任务</string>
     <string name="fingerprint_start_app_title">要启动的应用</string>
     <string name="fingerprint_start_app_summary">请选择要启动的应用</string>
-    <string name="tips">说明：指纹触控功能无需校验指纹信息，任意手指均可进行操作</string>
+    <string name="tips">说明：指纹速启只在使用指纹解锁手机的时候才会起作用</string>
 </resources>
