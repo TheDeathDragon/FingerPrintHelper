@@ -25,5 +25,5 @@ add_library( # Sets the name of the library.
              fingerprinthelper.cpp )
 
 target_link_libraries( # Specifies the target library.
-                       fingerprinthelper
+             fingerprinthelper
         )

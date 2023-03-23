@@ -14,7 +14,16 @@ android {
         versionName "1.0"
         externalNativeBuild {
             cmake {
-                cppFlags ''
+                cFlags "-Os"
+                cFlags "-g0"
+                cFlags "-fvisibility=hidden"
+                cFlags "-ffunction-sections"
+                cFlags "-fdata-sections"
+                cppFlags "-Os"
+                cppFlags "-g0"
+                cppFlags "-fvisibility=hidden"
+                cppFlags "-ffunction-sections"
+                cppFlags "-fdata-sections"
             }
         }
         ndk {

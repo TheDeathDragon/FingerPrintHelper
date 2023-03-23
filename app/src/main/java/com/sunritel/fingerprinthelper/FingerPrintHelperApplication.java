@@ -9,6 +9,10 @@ import com.sunritel.fingerprinthelper.receiver.FingerprintEventReceiver;
 
 public class FingerPrintHelperApplication extends Application {
 
+    static {
+        System.loadLibrary("fingerprinthelper");
+    }
+
     private static Application mApplicationContext;
 
     @Override
