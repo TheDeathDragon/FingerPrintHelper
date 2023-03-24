@@ -14,6 +14,9 @@ project("fingerprinthelper")
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ffunction-sections -fdata-sections -fvisibility=hidden -fvisibility-inlines-hidden -Os")
+set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS}")
+SET_TARGET_PROPERTIES(${TARGET_NAME} PROPERTIES LINK_FLAGS "-Wl,--gc-sections")
 
 add_library( # Sets the name of the library.
              fingerprinthelper
